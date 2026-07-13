@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res) => res.send('Bot żyje!'));
+app.get('/', (req, res) => res.send('Hejoo!'));
 app.listen(process.env.PORT || 3000, () => console.log('Serwer WWW gotowy.'));
 
 const schedule = require('./schedule');
@@ -59,7 +59,7 @@ client.on('messageCreate', async (message) => {
             for (const time of boss.time) {
                 const eventTimeSplit = time.split(':');
                 const eventTimeUTC = parseInt(eventTimeSplit[0]) * 60 + parseInt(eventTimeSplit[1]);
-                const eventTime = eventTimeUTC + 120;
+                const eventTime = (eventTimeUTC + 120) % 1440;
 
                 if (eventTime >= currentTime && eventTime <= currentTime + timeInterval) {
                     const displayHour = Math.floor(eventTime / 60) % 24;
@@ -226,7 +226,7 @@ client.on('messageCreate', async (message) => {
                 const eventTimeSplit = time.split(':');
                 const eventTimeUTC = parseInt(eventTimeSplit[0]) * 60 + parseInt(eventTimeSplit[1]);
 
-                const eventTime = eventTimeUTC + 120;
+                const eventTime = (eventTimeUTC + 120) % 1440;
 
                 if (eventTime >= currentTime && eventTime <= currentTime + timeInterval) {
                     const displayHour = Math.floor(eventTime / 60) % 24;
